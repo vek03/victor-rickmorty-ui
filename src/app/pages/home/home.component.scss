@@ -9,5 +9,21 @@
   max-width: 1200px;
   width: 100%;
   padding: 0 2rem;
-  flex: 1;
+  text-align: center;
+}
+
+.welcome {
+  font-family: 'Creepster';
+  font-size: 4rem;
+  color: var(--rickmorty-blue);
+}
+
+.description {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: #555;
+}
+
+.explore-button {
+  // Styles for the explore button
 }
