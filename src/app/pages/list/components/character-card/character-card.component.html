@@ -1,0 +1,20 @@
+<mat-card class="character-card">
+  <div class="card-content">
+    <img mat-card-image [src]="character.image" alt="{{ character.name }}" class="character-image">
+
+    <div class="character-info">
+      <h2>{{ character.name }}</h2>
+      <p class="type">{{ character.species }} - {{ character.status }}</p>
+
+      <div class="info-block">
+        <span class="label">Last known location:</span>
+        <p class="value">{{ character.location.name }}</p>
+      </div>
+
+      <div class="info-block">
+        <span class="label">First seen in:</span>
+        <p class="value">{{ character.origin.name }}</p>
+      </div>
+    </div>
+  </div>
+</mat-card>

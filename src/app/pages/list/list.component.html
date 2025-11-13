@@ -1,0 +1,17 @@
+<div class="list-container">
+
+  <h1 class="title">LISTAGEM</h1>
+
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Pesquisar Personagem</mat-label>
+    <input matInput placeholder="Digite o nome do personagem" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" />
+    <mat-icon matSuffix>search</mat-icon>
+    <mat-hint>Pesquise pelo nome do personagem</mat-hint>
+  </mat-form-field>
+
+  <div class="characters-list">
+    @for(character of characters; track character.id) {
+      <app-character-card [character]="character"></app-character-card>
+    }
+  </div>
+</div>

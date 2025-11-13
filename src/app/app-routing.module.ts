@@ -7,7 +7,9 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) }
+      { path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
+
+      { path: 'list', loadChildren: () => import('./pages/list/list.module').then(m => m.ListModule) }
     ]
   }
 ];
