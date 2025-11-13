@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "victor-marvel-ui": {
+    "victor-rickmorty-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/victor-marvel-ui",
+            "outputPath": "dist/victor-rickmorty-ui",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "victor-marvel-ui:build:production"
+              "buildTarget": "victor-rickmorty-ui:build:production"
             },
             "development": {
-              "buildTarget": "victor-marvel-ui:build:development"
+              "buildTarget": "victor-rickmorty-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
