@@ -1,8 +1,76 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
+/* You can add global styles to this file, and also import other style files */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 :root {
   --rickmorty-green: #9ac27d;
+  --rickmorty-blue: #3fa5b9;
 }
+
+@include mat.core();
+
+$smart-primary-palette: (
+  50:  #e5f5f8,
+  100: #bfe4ea,
+  200: #99d3dc,
+  300: #73c1ce,
+  400: #55b4c3,
+  500: #3fa5b9,
+  600: #3897aa,
+  700: #308595,
+  800: #297480,
+  900: #1d545d,
+  contrast: (
+    50:  #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  )
+);
+
+$smart-accent-palette: (
+  50:  #f3f8ec,
+  100: #e1efce,
+  200: #cde6ad,
+  300: #b9dc8c,
+  400: #a9d375,
+  500: #9ac27d,
+  600: #88b072,
+  700: #729860,
+  800: #5d804f,
+  900: #3e5b35,
+  contrast: (
+    50:  #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #000,
+    600: #000,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  )
+);
+
+$primary: mat.m2-define-palette($smart-primary-palette, 500);
+$accent:  mat.m2-define-palette($smart-accent-palette, 500);
+$warn:    mat.m2-define-palette(mat.$m2-red-palette);
+
+$theme: mat.m2-define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+@include mat.all-component-themes($theme);
