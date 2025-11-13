@@ -34,10 +34,10 @@ export class ListComponent implements OnInit {
     const character: Character = {
       id: Date.now().valueOf(),
       name: '',
-      status: '',
+      status: 'unknown',
       species: '',
       type: '',
-      gender: '',
+      gender: 'unknown',
       origin: { name: '', url: '' },
       location: { name: '', url: '' },
       image: '',
