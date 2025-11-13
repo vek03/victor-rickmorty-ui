@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Character } from '../../../../shared/models/character.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CharacterDetailDialogComponent } from '../character-detail-dialog/character-detail-dialog.component';
@@ -13,6 +13,9 @@ export class CharacterCardComponent {
   @Input()
   character!: Character;
 
+  @Output()
+  characterChange = new EventEmitter<Character>();
+
   constructor(private dialog: MatDialog) {}
 
   openDetails() {
@@ -23,7 +26,7 @@ export class CharacterCardComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.character = result;
+        this.characterChange.emit(result);
       }
     });
   }

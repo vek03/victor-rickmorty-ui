@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Character } from '../../shared/models/character.model';
 import { RickMortyAPIService } from '../../shared/services/RickMortyAPI.service';
 import Swal from 'sweetalert2';
+import { CharacterDetailDialogComponent } from './components/character-detail-dialog/character-detail-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { LocalStorageService } from '../../shared/services/LocalStorage.service';
 
 @Component({
   selector: 'app-list',
@@ -14,7 +17,9 @@ export class ListComponent implements OnInit {
   characters: Character[] = [];
 
   constructor(
-    private rickMortyAPIService: RickMortyAPIService
+    private localStorageService: LocalStorageService,
+    private rickMortyAPIService: RickMortyAPIService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -25,12 +30,45 @@ export class ListComponent implements OnInit {
     this.searchCharacters({ name: this.searchTerm } as Character);
   }
 
+  openCreateCharacterDialog() {
+    const character: Character = {
+      id: Date.now().valueOf(),
+      name: '',
+      status: '',
+      species: '',
+      type: '',
+      gender: '',
+      origin: { name: '', url: '' },
+      location: { name: '', url: '' },
+      image: '',
+      episode: [],
+      url: '',
+      created: ''
+    };
+
+    const dialogRef = this.dialog.open(CharacterDetailDialogComponent, {
+      data: character,
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.addCharacter(result);
+      }
+    });
+  }
+
   searchCharacters(filter?: Character) {
     this.rickMortyAPIService.getCharacters(filter).subscribe({
       next: (res) => {
-        this.characters = res.results;
+        this.characters = [...this.localStorageService.getStoredCharacters(filter), ...res.results];
       },
       error: (err) => {
+        if (err.status === 404) {
+          this.characters = this.localStorageService.getStoredCharacters(filter);
+          return;
+        }
+
         console.error('Error fetching characters:', err);
         Swal.fire({
           icon: 'error',
@@ -39,5 +77,21 @@ export class ListComponent implements OnInit {
         });
       }
     });
+  }
+
+  updateCharacter(updatedCharacter: Character) {
+    const index = this.characters.findIndex(char => char.id === updatedCharacter.id);
+    if (index !== -1) {
+      this.localStorageService.updateCharacter(updatedCharacter);
+      this.searchCharacters({ name: this.searchTerm } as Character);
+    }
+    else {
+      this.addCharacter(updatedCharacter);
+    }
+  }
+
+  addCharacter(character: Character) {
+    this.localStorageService.createCharacter(character);
+    this.searchCharacters({ name: this.searchTerm } as Character);
   }
 }
