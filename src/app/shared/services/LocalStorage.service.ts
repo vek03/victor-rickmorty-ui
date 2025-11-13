@@ -5,6 +5,7 @@ import { Character } from '../models/character.model';
 export class LocalStorageService {
   createCharacter(character: Character): void {
     const storedCharacters = this.getStoredCharacters();
+    character.created = new Date().toISOString();
     storedCharacters.push(character);
     localStorage.setItem('customCharacters', JSON.stringify(storedCharacters));
   }
@@ -25,7 +26,7 @@ export class LocalStorageService {
   updateCharacter(updatedCharacter: Character): void {
     const storedCharacters = this.getStoredCharacters();
     const index = storedCharacters.findIndex(char => char.id === updatedCharacter.id);
-    
+
     if (index !== -1) {
       storedCharacters[index] = updatedCharacter;
       localStorage.setItem('customCharacters', JSON.stringify(storedCharacters));

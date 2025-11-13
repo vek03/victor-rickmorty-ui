@@ -52,8 +52,8 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.addCharacter(result);
+      if (result !== undefined && result.editedCharacter) {
+        this.addCharacter(result.editedCharacter);
       }
     });
   }
@@ -92,6 +92,11 @@ export class ListComponent implements OnInit {
 
   addCharacter(character: Character) {
     this.localStorageService.createCharacter(character);
+    this.searchCharacters({ name: this.searchTerm } as Character);
+  }
+
+  removeCharacter(character: Character) {
+    this.localStorageService.removeCharacterById(character.id);
     this.searchCharacters({ name: this.searchTerm } as Character);
   }
 }

@@ -16,6 +16,9 @@ export class CharacterCardComponent {
   @Output()
   characterChange = new EventEmitter<Character>();
 
+  @Output()
+  removeCharacter = new EventEmitter<Character>();
+
   constructor(private dialog: MatDialog) {}
 
   openDetails() {
@@ -26,7 +29,12 @@ export class CharacterCardComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.characterChange.emit(result);
+        if(result.remove) {
+          this.removeCharacter.emit(this.character);
+          return;
+        }
+
+        this.characterChange.emit(result.editedCharacter);
       }
     });
   }
