@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Character } from '../../../../shared/models/character.model';
+import { MatDialog } from '@angular/material/dialog';
+import { CharacterDetailDialogComponent } from '../character-detail-dialog/character-detail-dialog.component';
 
 @Component({
   selector: 'app-character-card',
@@ -10,4 +12,19 @@ import { Character } from '../../../../shared/models/character.model';
 export class CharacterCardComponent {
   @Input()
   character!: Character;
+
+  constructor(private dialog: MatDialog) {}
+
+  openDetails() {
+    const dialogRef = this.dialog.open(CharacterDetailDialogComponent, {
+      data: this.character,
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.character = result;
+      }
+    });
+  }
 }

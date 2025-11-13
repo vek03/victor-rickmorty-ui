@@ -1,0 +1,49 @@
+<h1 mat-dialog-title class="dialog-title">{{data.name}}</h1>
+<mat-dialog-content class="dialog-content">
+  <img mat-card-image [src]="data.image" alt="{{ data.name }}" class="character-image">
+
+  <div class="edit-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput [(ngModel)]="editedCharacter.name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <input matInput [(ngModel)]="editedCharacter.status" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Espécie</mat-label>
+      <input matInput [(ngModel)]="editedCharacter.species" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo</mat-label>
+      <input matInput [(ngModel)]="editedCharacter.type" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Gênero</mat-label>
+      <input matInput [(ngModel)]="editedCharacter.gender" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Origem</mat-label>
+      <input matInput [(ngModel)]="editedCharacter.origin.name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Localização</mat-label>
+      <input matInput [(ngModel)]="editedCharacter.location.name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Imagem URL</mat-label>
+      <input matInput [(ngModel)]="editedCharacter.image" />
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCloseClick()">Fechar</button>
+</mat-dialog-actions>
