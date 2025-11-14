@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Character } from '../models/character.model';
+import { Character } from '../../models/character.model';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {

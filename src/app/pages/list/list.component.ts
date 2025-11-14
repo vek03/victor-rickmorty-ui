@@ -4,7 +4,7 @@ import { RickMortyAPIService } from '../../shared/services/RickMortyAPI/RickMort
 import Swal from 'sweetalert2';
 import { CharacterDetailDialogComponent } from './components/character-detail-dialog/character-detail-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LocalStorageService } from '../../shared/services/LocalStorage.service';
+import { LocalStorageService } from '../../shared/services/LocalStorage/LocalStorage.service';
 
 @Component({
   selector: 'app-list',
