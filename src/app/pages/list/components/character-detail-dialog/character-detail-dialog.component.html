@@ -59,7 +59,7 @@
     <mat-icon>delete</mat-icon>
   </button>
   }
-  @else {
+  @else if (data.created !== '') {
     <mat-icon matTooltip="Só é possível excluir personagens criados por você!" matTooltipPosition="left">info</mat-icon>
   }
 
