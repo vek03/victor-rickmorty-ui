@@ -133,6 +133,11 @@ export class ListComponent implements OnInit {
     if (index !== -1) {
       this.localStorageService.updateCharacter(updatedCharacter);
       this.searchCharacters({ name: this.searchTerm() } as Character);
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso',
+        text: 'Personagem atualizado com sucesso!',
+      });
     }
     else {
       this.addCharacter(updatedCharacter);
@@ -147,10 +152,20 @@ export class ListComponent implements OnInit {
   addCharacter(character: Character) {
     this.localStorageService.createCharacter(character);
     this.searchCharacters({ name: this.searchTerm() } as Character);
+    Swal.fire({
+      icon: 'success',
+      title: 'Sucesso',
+      text: 'Personagem criado com sucesso!',
+    });
   }
 
   removeCharacter(character: Character) {
     this.localStorageService.removeCharacterById(character.id);
     this.searchCharacters({ name: this.searchTerm() } as Character);
+    Swal.fire({
+      icon: 'success',
+      title: 'Sucesso',
+      text: 'Personagem removido com sucesso!',
+    });
   }
 }
