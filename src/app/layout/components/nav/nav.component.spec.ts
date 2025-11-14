@@ -202,7 +202,7 @@ describe('NavComponent', () => {
 
     it('should have correct routerLink directives', () => {
       const routerLinks = fixture.debugElement.queryAll(By.css('[routerLink]'));
-      expect(routerLinks.length).toBe(2);
+      expect(routerLinks.length).toBe(3);
 
       const routerLinkValues = routerLinks.map(link =>
         link.nativeElement.getAttribute('routerLink')
