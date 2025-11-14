@@ -42,14 +42,14 @@ export class CharacterDetailDialogComponent {
 
     this.editedCharacter.update(c => ({
       ...c,
-      name: this.characterForm.value.name || '',
-      status: this.characterForm.value.status || 'unknown',
-      species: this.characterForm.value.species || '',
-      type: this.characterForm.value.type || '',
-      gender: this.characterForm.value.gender || 'unknown',
-      origin: { ...c.origin, name: this.characterForm.value.originName || '' },
-      location: { ...c.location, name: this.characterForm.value.locationName || '' },
-      image: this.characterForm.value.image || ''
+      name: this.characterForm.value.name!,
+      status: this.characterForm.value.status!,
+      species: this.characterForm.value.species!,
+      type: this.characterForm.value.type!,
+      gender: this.characterForm.value.gender!,
+      origin: { ...c.origin, name: this.characterForm.value.originName! },
+      location: { ...c.location, name: this.characterForm.value.locationName! },
+      image: this.characterForm.value.image!
     }));
 
     this.dialogRef.close({ editedCharacter: this.editedCharacter(), remove: false });
