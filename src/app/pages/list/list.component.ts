@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import { Character } from '../../shared/models/character.model';
-import { RickMortyAPIService } from '../../shared/services/RickMortyAPI/RickMortyAPI.service';
+import { RickMortyAPIService } from '../../shared/services/RickMortyAPI/rick-morty-api.service';
 import Swal from 'sweetalert2';
 import { CharacterDetailDialogComponent } from './components/character-detail-dialog/character-detail-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LocalStorageService } from '../../shared/services/LocalStorage/LocalStorage.service';
+import { LocalStorageService } from '../../shared/services/LocalStorage/local-storage.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({

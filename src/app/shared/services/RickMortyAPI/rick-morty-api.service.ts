@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environments';
-import { RickMortyAPICharacterListResponse } from './dto/RickMortyAPICharacterListResponse';
+import { RickMortyAPICharacterListResponse } from './dto/rick-morty-api-character-list-response';
 import { Character } from '../../models/character.model';
 
 @Injectable({ providedIn: 'root' })
