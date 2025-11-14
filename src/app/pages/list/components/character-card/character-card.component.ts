@@ -31,7 +31,9 @@ export class CharacterCardComponent {
           return;
         }
 
-        this.characterChange.emit(result.editedCharacter);
+        if(result.editedCharacter) {
+          this.characterChange.emit(result.editedCharacter);
+        }
       }
     });
   }
