@@ -98,6 +98,7 @@ export class ListComponent implements OnInit {
 
   searchCharacters(filter?: Character) {
     this.loading = true;
+    this.page = 1;
 
     this.rickMortyAPIService.getCharacters(filter).subscribe({
       next: (res) => {
