@@ -51,6 +51,12 @@ criação, edição e exclusão.
 
 ---
 
+## ✅ Testes (Qualidade)
+
+<img src="public/assets/images/relatorio_cobertura_testes.png" width="800px" alt="LightHouse SEO da aplicação">
+
+---
+
 ## 📦 Instalação e Configuração do Ambiente
 
 ### 1️⃣ Clone o projeto na sua máquina e baixe as dependências:
