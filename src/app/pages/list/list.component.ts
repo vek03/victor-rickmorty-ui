@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Character } from '../../shared/models/character.model';
-import { RickMortyAPIService } from '../../shared/services/RickMortyAPI.service';
+import { RickMortyAPIService } from '../../shared/services/RickMortyAPI/RickMortyAPI.service';
 import Swal from 'sweetalert2';
 import { CharacterDetailDialogComponent } from './components/character-detail-dialog/character-detail-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
