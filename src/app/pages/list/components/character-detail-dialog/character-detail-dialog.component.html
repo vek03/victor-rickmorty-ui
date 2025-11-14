@@ -1,6 +1,6 @@
-<h1 mat-dialog-title class="dialog-title">{{data.name}}</h1>
+<h1 mat-dialog-title class="dialog-title">{{ characterForm.get('name')?.value }}</h1>
 <mat-dialog-content class="dialog-content">
-  <img mat-card-image [src]="data.image" onerror="this.src='assets/images/Unknown_person.jpg'" alt="{{ data.name }}" class="character-image">
+  <img mat-card-image [src]="characterForm.get('image')?.value" onerror="this.src='assets/images/Unknown_person.jpg'" alt="{{ characterForm.get('name')?.value }}" class="character-image">
 
   <form class="edit-form" [formGroup]="characterForm">
     <mat-form-field appearance="outline">
