@@ -1,19 +1,19 @@
 <mat-card class="character-card" (click)="openDetails()">
   <div class="card-content">
-    <img mat-card-image [src]="character.image" onerror="this.src='assets/images/Unknown_person.jpg'" alt="{{ character.name }}" class="character-image">
+    <img mat-card-image [src]="character().image" onerror="this.src='assets/images/Unknown_person.jpg'" alt="{{ character().name }}" class="character-image">
 
     <div class="character-info">
-      <h2>{{ character.name }}</h2>
-      <p class="type">{{ character.species }}/{{ character.gender }} - {{ character.status }}</p>
+      <h2>{{ character().name }}</h2>
+      <p class="type">{{ character().species }}/{{ character().gender }} - {{ character().status }}</p>
 
       <div class="info-block">
         <span class="label">Última localização conhecida:</span>
-        <p class="value">{{ character.location.name }}</p>
+        <p class="value">{{ character().location.name }}</p>
       </div>
 
       <div class="info-block">
         <span class="label">Visto pela primeira vez em:</span>
-        <p class="value">{{ character.origin.name }}</p>
+        <p class="value">{{ character().origin.name }}</p>
       </div>
     </div>
   </div>

@@ -13,8 +13,8 @@ import { LocalStorageService } from '../../shared/services/LocalStorage/LocalSto
   styleUrl: './list.component.scss'
 })
 export class ListComponent implements OnInit {
-  searchTerm: string = '';
-  characters: Character[] = [];
+  searchTerm = signal<string>('');
+  characters = signal<Character[]>([]);
 
   @ViewChild('endOfList', { static: true }) endOfList!: ElementRef;
   pagination = signal({ page: 1, totalPages: 1, totalCharacters: 0 });
@@ -40,7 +40,7 @@ export class ListComponent implements OnInit {
   }
 
   onSearchChange() {
-    this.searchCharacters({ name: this.searchTerm } as Character);
+    this.searchCharacters({ name: this.searchTerm() } as Character);
   }
 
   openCreateCharacterDialog() {
@@ -77,9 +77,9 @@ export class ListComponent implements OnInit {
     this.loading.set(true);
     this.pagination.update(p => ({ ...p, page: p.page + 1 }));
 
-    this.rickMortyAPIService.getCharacters({ name: this.searchTerm } as Character, this.pagination().page).subscribe({
+    this.rickMortyAPIService.getCharacters({ name: this.searchTerm() } as Character, this.pagination().page).subscribe({
       next: (res) => {
-        this.characters = [...this.characters, ...res.results];
+        this.characters.update(c => ([...c, ...res.results]));
         this.loading.set(false);
       },
       error: (err) => {
@@ -107,7 +107,7 @@ export class ListComponent implements OnInit {
           totalPages: res.info.pages,
           totalCharacters: res.info.count + storedCharacters.length
         }));
-        this.characters = [...storedCharacters, ...res.results];
+        this.characters.set([...storedCharacters, ...res.results]);
         this.loading.set(false);
       },
       error: (err) => {
@@ -129,10 +129,10 @@ export class ListComponent implements OnInit {
   }
 
   updateCharacter(updatedCharacter: Character) {
-    const index = this.characters.findIndex(char => char.id === updatedCharacter.id);
+    const index = this.characters().findIndex(char => char.id === updatedCharacter.id);
     if (index !== -1) {
       this.localStorageService.updateCharacter(updatedCharacter);
-      this.searchCharacters({ name: this.searchTerm } as Character);
+      this.searchCharacters({ name: this.searchTerm() } as Character);
     }
     else {
       this.addCharacter(updatedCharacter);
@@ -140,17 +140,17 @@ export class ListComponent implements OnInit {
   }
 
   updatePagination404(storedCharacters: Character[]) {
-    this.characters = storedCharacters;
-    this.pagination.set({ page: 1, totalPages: 1, totalCharacters: this.characters.length });
+    this.characters.set(storedCharacters);
+    this.pagination.set({ page: 1, totalPages: 1, totalCharacters: this.characters().length });
   }
 
   addCharacter(character: Character) {
     this.localStorageService.createCharacter(character);
-    this.searchCharacters({ name: this.searchTerm } as Character);
+    this.searchCharacters({ name: this.searchTerm() } as Character);
   }
 
   removeCharacter(character: Character) {
     this.localStorageService.removeCharacterById(character.id);
-    this.searchCharacters({ name: this.searchTerm } as Character);
+    this.searchCharacters({ name: this.searchTerm() } as Character);
   }
 }

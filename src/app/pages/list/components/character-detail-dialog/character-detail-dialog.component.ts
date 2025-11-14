@@ -1,4 +1,4 @@
-import { Component, inject, model } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Character } from '../../../../shared/models/character.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
@@ -13,14 +13,14 @@ export class CharacterDetailDialogComponent {
   readonly dialogRef = inject(MatDialogRef<CharacterDetailDialogComponent>);
   readonly data = inject<Character>(MAT_DIALOG_DATA);
 
-  editedCharacter: Character = this.data;
+  editedCharacter = signal<Character>(this.data);
 
   onCloseClick(): void {
     this.dialogRef.close({ remove: false });
   }
 
   onSaveClick(): void {
-    this.dialogRef.close({ editedCharacter: this.editedCharacter, remove: false });
+    this.dialogRef.close({ editedCharacter: this.editedCharacter(), remove: false });
   }
 
   onRemoveClick(): void {

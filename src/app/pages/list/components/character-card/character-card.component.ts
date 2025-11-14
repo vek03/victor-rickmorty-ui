@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Character } from '../../../../shared/models/character.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CharacterDetailDialogComponent } from '../character-detail-dialog/character-detail-dialog.component';
@@ -10,27 +10,24 @@ import { CharacterDetailDialogComponent } from '../character-detail-dialog/chara
   styleUrl: './character-card.component.scss'
 })
 export class CharacterCardComponent {
-  @Input()
-  character!: Character;
+  readonly character = input.required<Character>();
 
-  @Output()
-  characterChange = new EventEmitter<Character>();
+  readonly characterChange = output<Character>();
 
-  @Output()
-  removeCharacter = new EventEmitter<Character>();
+  readonly removeCharacter = output<Character>();
 
   constructor(private dialog: MatDialog) {}
 
   openDetails() {
     const dialogRef = this.dialog.open(CharacterDetailDialogComponent, {
-      data: this.character,
+      data: this.character(),
       panelClass: 'custom-dialog-container'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         if(result.remove) {
-          this.removeCharacter.emit(this.character);
+          this.removeCharacter.emit(this.character());
           return;
         }
 
