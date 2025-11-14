@@ -1,0 +1,70 @@
+<h1 mat-dialog-title class="dialog-title">{{ characterForm.get('name')?.value }}</h1>
+<mat-dialog-content class="dialog-content">
+  <img mat-card-image [src]="characterForm.get('image')?.value" onerror="this.src='assets/images/Unknown_person.jpg'" alt="{{ characterForm.get('name')?.value }}" class="character-image">
+
+  <form class="edit-form" [formGroup]="characterForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="Alive">Vivo</mat-option>
+        <mat-option value="Dead">Morto</mat-option>
+        <mat-option value="unknown">Desconhecido</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Espécie</mat-label>
+      <input matInput formControlName="species" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo</mat-label>
+      <input matInput formControlName="type" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Gênero</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="Male">Masculino</mat-option>
+        <mat-option value="Female">Feminino</mat-option>
+        <mat-option value="Genderless">Sem gênero</mat-option>
+        <mat-option value="unknown">Desconhecido</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Origem</mat-label>
+      <input matInput formControlName="originName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Localização</mat-label>
+      <input matInput formControlName="locationName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Imagem URL</mat-label>
+      <input matInput formControlName="image" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="buttons">
+  @if(data.episode.length === 0 && data.created !== '') {
+    <button mat-fab color="warn" aria-label="Save" (click)="onRemoveClick()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  }
+  @else if (data.created !== '') {
+    <mat-icon matTooltip="Só é possível excluir e editar personagens criados por você!" matTooltipPosition="left">info</mat-icon>
+  }
+  <button mat-button (click)="onCloseClick()">Fechar</button>
+
+  @if(data.episode.length === 0) {
+    <button mat-raised-button color="primary" (click)="onSaveClick()">Salvar</button>
+  }
+</mat-dialog-actions>

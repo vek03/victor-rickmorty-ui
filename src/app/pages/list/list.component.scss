@@ -1,0 +1,55 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.total-characters {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.list-container {
+  max-width: 100%;
+  padding: 0 2rem;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.create-character {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 1rem;
+}
+
+.characters-list {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}

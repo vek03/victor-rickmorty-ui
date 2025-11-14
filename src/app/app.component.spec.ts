@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'victor-marvel-ui'`, () => {
+  it(`should have as title 'victor-rickmorty-ui'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('victor-marvel-ui');
+    expect(app.title).toEqual('victor-rickmorty-ui');
   });
 
-  it('should render title', () => {
+  it('should render router-outlet', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, victor-marvel-ui');
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
 });
