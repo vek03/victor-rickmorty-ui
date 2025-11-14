@@ -87,8 +87,8 @@ describe('ListComponent', () => {
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
 
-    // Mock ViewChild
-    component.endOfList = mockEndOfListElement;
+    // Mock viewChild signal
+    (component as any).endOfList = jest.fn().mockReturnValue(mockEndOfListElement);
 
     // Mock IntersectionObserver
     const mockIntersectionObserver = {
@@ -123,6 +123,7 @@ describe('ListComponent', () => {
 
       expect(searchCharactersSpy).toHaveBeenCalled();
       expect(global.IntersectionObserver).toHaveBeenCalled();
+      expect(component.endOfList).toHaveBeenCalled();
       expect(component.observer.observe).toHaveBeenCalledWith(mockEndOfListElement.nativeElement);
     });
 
