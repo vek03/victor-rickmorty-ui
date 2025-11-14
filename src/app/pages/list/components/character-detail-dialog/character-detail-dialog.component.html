@@ -55,9 +55,12 @@
 </mat-dialog-content>
 <mat-dialog-actions class="buttons">
   @if(data.episode.length === 0 && data.created !== '') {
-    <button mat-fab color="warn" aria-label="Save" (click)="onRemoveClick()">
-      <mat-icon>delete</mat-icon>
-    </button>
+  <button mat-fab color="warn" aria-label="Save" (click)="onRemoveClick()">
+    <mat-icon>delete</mat-icon>
+  </button>
+  }
+  @else {
+    <mat-icon matTooltip="Só é possível excluir personagens criados por você!" matTooltipPosition="left">info</mat-icon>
   }
 
   <button mat-button (click)="onCloseClick()">Fechar</button>
