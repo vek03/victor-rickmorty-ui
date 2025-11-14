@@ -27,6 +27,12 @@ export class CharacterDetailDialogComponent {
     image: new FormControl(this.data.image, Validators.required)
   });
 
+  ngOnInit(): void {
+    if(this.editedCharacter().episode.length !== 0) {
+      this.characterForm.disable();
+    }
+  }
+
   onCloseClick(): void {
     this.dialogRef.close({ remove: false });
   }
