@@ -19,7 +19,7 @@ describe('CharacterCardComponent', () => {
     name: 'Rick Sanchez',
     status: 'Alive',
     species: 'Human',
-    type: '',
+    type: 'Sub',
     gender: 'Male',
     origin: {
       name: 'Earth (C-137)',
