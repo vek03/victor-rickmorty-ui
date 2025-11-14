@@ -22,12 +22,12 @@
     }
   </div>
 
-  <div class="loading-spinner" *ngIf="loading">
+  <div class="loading-spinner" *ngIf="loading()">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
 
   <div class="total-characters">
-    {{ characters.length }} de {{ totalCharacters }} personagens carregados.
+    {{ characters.length }} de {{ pagination().totalCharacters }} personagens carregados.
   </div>
 
   <div #endOfList></div>

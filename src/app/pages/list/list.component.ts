@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import { Character } from '../../shared/models/character.model';
 import { RickMortyAPIService } from '../../shared/services/RickMortyAPI/RickMortyAPI.service';
 import Swal from 'sweetalert2';
@@ -17,10 +17,8 @@ export class ListComponent implements OnInit {
   characters: Character[] = [];
 
   @ViewChild('endOfList', { static: true }) endOfList!: ElementRef;
-  page = 0;
-  totalPages = 1;
-  totalCharacters = 0;
-  loading = false;
+  pagination = signal({ page: 1, totalPages: 1, totalCharacters: 0 });
+  loading = signal(false);
   observer!: IntersectionObserver;
 
   constructor(
@@ -33,7 +31,7 @@ export class ListComponent implements OnInit {
     this.searchCharacters();
 
     this.observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && !this.loading) {
+      if (entries[0].isIntersecting && !this.loading()) {
         this.loadMore();
       }
     });
@@ -74,18 +72,18 @@ export class ListComponent implements OnInit {
   }
 
   loadMore() {
-    if (this.page >= this.totalPages) return;
+    if (this.pagination().page >= this.pagination().totalPages) return;
 
-    this.loading = true;
-    this.page++;
+    this.loading.set(true);
+    this.pagination.update(p => ({ ...p, page: p.page + 1 }));
 
-    this.rickMortyAPIService.getCharacters({ name: this.searchTerm } as Character, this.page).subscribe({
+    this.rickMortyAPIService.getCharacters({ name: this.searchTerm } as Character, this.pagination().page).subscribe({
       next: (res) => {
         this.characters = [...this.characters, ...res.results];
-        this.loading = false;
+        this.loading.set(false);
       },
       error: (err) => {
-        this.loading = false;
+        this.loading.set(false);
         console.error('Error fetching more characters:', err);
         Swal.fire({
           icon: 'error',
@@ -97,19 +95,23 @@ export class ListComponent implements OnInit {
   }
 
   searchCharacters(filter?: Character) {
-    this.loading = true;
-    this.page = 1;
+    this.loading.set(true);
+    this.pagination.update(p => ({ ...p, page: 1 }));
 
     this.rickMortyAPIService.getCharacters(filter).subscribe({
       next: (res) => {
         const storedCharacters = this.localStorageService.getStoredCharacters(filter);
-        this.totalPages = res.info.pages;
-        this.totalCharacters = res.info.count + storedCharacters.length;
+
+        this.pagination.update(p => ({
+          ...p,
+          totalPages: res.info.pages,
+          totalCharacters: res.info.count + storedCharacters.length
+        }));
         this.characters = [...storedCharacters, ...res.results];
-        this.loading = false;
+        this.loading.set(false);
       },
       error: (err) => {
-        this.loading = false;
+        this.loading.set(false);
 
         if (err.status === 404) {
           this.updatePagination404(this.localStorageService.getStoredCharacters(filter));
@@ -139,9 +141,7 @@ export class ListComponent implements OnInit {
 
   updatePagination404(storedCharacters: Character[]) {
     this.characters = storedCharacters;
-    this.page = 1;
-    this.totalPages = 1;
-    this.totalCharacters = storedCharacters.length;
+    this.pagination.set({ page: 1, totalPages: 1, totalCharacters: this.characters.length });
   }
 
   addCharacter(character: Character) {
