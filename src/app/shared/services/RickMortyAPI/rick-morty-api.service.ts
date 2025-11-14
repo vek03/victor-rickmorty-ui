@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environments';
@@ -9,7 +9,7 @@ import { Character } from '../../models/character.model';
 export class RickMortyAPIService {
   private baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  http = inject(HttpClient);
 
   getCharacters(filter?: Character, page?: number): Observable<RickMortyAPICharacterListResponse> {
     const params: any = {};

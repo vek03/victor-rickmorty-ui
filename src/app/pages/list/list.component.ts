@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, signal, viewChild, ViewChild } from '@angular/core';
 import { Character } from '../../shared/models/character.model';
 import { RickMortyAPIService } from '../../shared/services/RickMortyAPI/rick-morty-api.service';
 import Swal from 'sweetalert2';
@@ -14,22 +14,20 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrl: './list.component.scss'
 })
 export class ListComponent implements OnInit {
+  localStorageService = inject(LocalStorageService);
+  rickMortyAPIService = inject(RickMortyAPIService);
+  dialog = inject(MatDialog);
+
   searchForm = new FormGroup({
     searchTerm: new FormControl('')
   });
 
   characters = signal<Character[]>([]);
 
-  @ViewChild('endOfList', { static: true }) endOfList!: ElementRef;
+  endOfList = viewChild<ElementRef>('endOfList');
   pagination = signal({ page: 1, totalPages: 1, totalCharacters: 0 });
   loading = signal(false);
   observer!: IntersectionObserver;
-
-  constructor(
-    private localStorageService: LocalStorageService,
-    private rickMortyAPIService: RickMortyAPIService,
-    private dialog: MatDialog
-  ) {}
 
   ngOnInit() {
     this.searchCharacters();
@@ -40,7 +38,7 @@ export class ListComponent implements OnInit {
       }
     });
 
-    this.observer.observe(this.endOfList.nativeElement);
+    this.observer.observe(this.endOfList()!.nativeElement);
   }
 
   onSearchChange() {

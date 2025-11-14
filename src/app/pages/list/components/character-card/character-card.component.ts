@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { Character } from '../../../../shared/models/character.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CharacterDetailDialogComponent } from '../character-detail-dialog/character-detail-dialog.component';
@@ -16,7 +16,7 @@ export class CharacterCardComponent {
 
   readonly removeCharacter = output<Character>();
 
-  constructor(private dialog: MatDialog) {}
+  dialog = inject(MatDialog);
 
   openDetails() {
     const dialogRef = this.dialog.open(CharacterDetailDialogComponent, {
