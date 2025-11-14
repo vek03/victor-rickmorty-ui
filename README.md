@@ -45,6 +45,12 @@ criação, edição e exclusão.
 
 ---
 
+## ✨ LightHouse (SEO)
+
+<img src="public/assets/images/Lighthouse.png" width="800px" alt="LightHouse SEO da aplicação">
+
+---
+
 ## 📦 Instalação e Configuração do Ambiente
 
 ### 1️⃣ Clone o projeto na sua máquina e baixe as dependências:
