@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { CharacterDetailDialogComponent } from './components/character-detail-dialog/character-detail-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { LocalStorageService } from '../../shared/services/LocalStorage/LocalStorage.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -13,7 +14,10 @@ import { LocalStorageService } from '../../shared/services/LocalStorage/LocalSto
   styleUrl: './list.component.scss'
 })
 export class ListComponent implements OnInit {
-  searchTerm = signal<string>('');
+  searchForm = new FormGroup({
+    searchTerm: new FormControl('')
+  });
+
   characters = signal<Character[]>([]);
 
   @ViewChild('endOfList', { static: true }) endOfList!: ElementRef;
@@ -40,7 +44,8 @@ export class ListComponent implements OnInit {
   }
 
   onSearchChange() {
-    this.searchCharacters({ name: this.searchTerm() } as Character);
+    console.log('Search term changed:', this.searchForm.get('searchTerm')?.value);
+    this.searchCharacters({ name: this.searchForm.get('searchTerm')?.value } as Character);
   }
 
   openCreateCharacterDialog() {
@@ -77,7 +82,7 @@ export class ListComponent implements OnInit {
     this.loading.set(true);
     this.pagination.update(p => ({ ...p, page: p.page + 1 }));
 
-    this.rickMortyAPIService.getCharacters({ name: this.searchTerm() } as Character, this.pagination().page).subscribe({
+    this.rickMortyAPIService.getCharacters({ name: this.searchForm.get('searchTerm')?.value } as Character, this.pagination().page).subscribe({
       next: (res) => {
         this.characters.update(c => ([...c, ...res.results]));
         this.loading.set(false);
@@ -132,7 +137,7 @@ export class ListComponent implements OnInit {
     const index = this.characters().findIndex(char => char.id === updatedCharacter.id);
     if (index !== -1) {
       this.localStorageService.updateCharacter(updatedCharacter);
-      this.searchCharacters({ name: this.searchTerm() } as Character);
+      this.searchCharacters({ name: this.searchForm.get('searchTerm')?.value } as Character);
       Swal.fire({
         icon: 'success',
         title: 'Sucesso',
@@ -151,7 +156,7 @@ export class ListComponent implements OnInit {
 
   addCharacter(character: Character) {
     this.localStorageService.createCharacter(character);
-    this.searchCharacters({ name: this.searchTerm() } as Character);
+    this.searchCharacters({ name: this.searchForm.get('searchTerm')?.value } as Character);
     Swal.fire({
       icon: 'success',
       title: 'Sucesso',
@@ -161,7 +166,7 @@ export class ListComponent implements OnInit {
 
   removeCharacter(character: Character) {
     this.localStorageService.removeCharacterById(character.id);
-    this.searchCharacters({ name: this.searchTerm() } as Character);
+    this.searchCharacters({ name: this.searchForm.get('searchTerm')?.value } as Character);
     Swal.fire({
       icon: 'success',
       title: 'Sucesso',

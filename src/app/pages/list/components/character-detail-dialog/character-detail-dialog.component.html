@@ -2,56 +2,56 @@
 <mat-dialog-content class="dialog-content">
   <img mat-card-image [src]="data.image" onerror="this.src='assets/images/Unknown_person.jpg'" alt="{{ data.name }}" class="character-image">
 
-  <div class="edit-form">
-    <mat-form-field appearance="outline">
-      <mat-label>Nome</mat-label>
-      <input matInput [(ngModel)]="editedCharacter().name" />
-    </mat-form-field>
+  <form class="edit-form" [formGroup]="characterForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Status</mat-label>
-      <mat-select [(ngModel)]="editedCharacter().status">
-        <mat-option value="Alive">Vivo</mat-option>
-        <mat-option value="Dead">Morto</mat-option>
-        <mat-option value="unknown">Desconhecido</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="Alive">Vivo</mat-option>
+          <mat-option value="Dead">Morto</mat-option>
+          <mat-option value="unknown">Desconhecido</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Espécie</mat-label>
-      <input matInput [(ngModel)]="editedCharacter().species" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Espécie</mat-label>
+        <input matInput formControlName="species" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Tipo</mat-label>
-      <input matInput [(ngModel)]="editedCharacter().type" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <input matInput formControlName="type" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Gênero</mat-label>
-      <mat-select [(ngModel)]="editedCharacter().gender">
-        <mat-option value="Male">Masculino</mat-option>
-        <mat-option value="Female">Feminino</mat-option>
-        <mat-option value="Genderless">Sem gênero</mat-option>
-        <mat-option value="unknown">Desconhecido</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Gênero</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="Male">Masculino</mat-option>
+          <mat-option value="Female">Feminino</mat-option>
+          <mat-option value="Genderless">Sem gênero</mat-option>
+          <mat-option value="unknown">Desconhecido</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Origem</mat-label>
-      <input matInput [(ngModel)]="editedCharacter().origin.name" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Origem</mat-label>
+        <input matInput formControlName="originName" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Localização</mat-label>
-      <input matInput [(ngModel)]="editedCharacter().location.name" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Localização</mat-label>
+        <input matInput formControlName="locationName" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Imagem URL</mat-label>
-      <input matInput [(ngModel)]="editedCharacter().image" />
-    </mat-form-field>
-  </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Imagem URL</mat-label>
+        <input matInput formControlName="image" />
+      </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions class="buttons">
   @if(data.episode.length === 0 && data.created !== '') {

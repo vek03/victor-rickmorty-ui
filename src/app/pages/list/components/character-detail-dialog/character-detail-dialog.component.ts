@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Character } from '../../../../shared/models/character.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-character-detail-dialog',
@@ -15,11 +16,36 @@ export class CharacterDetailDialogComponent {
 
   editedCharacter = signal<Character>(this.data);
 
+  characterForm = new FormGroup({
+    name: new FormControl(this.data.name, Validators.required),
+    status: new FormControl(this.data.status, Validators.required),
+    species: new FormControl(this.data.species, Validators.required),
+    type: new FormControl(this.data.type, Validators.required),
+    gender: new FormControl(this.data.gender, Validators.required),
+    originName: new FormControl(this.data.origin.name, Validators.required),
+    locationName: new FormControl(this.data.location.name, Validators.required),
+    image: new FormControl(this.data.image, Validators.required)
+  });
+
   onCloseClick(): void {
     this.dialogRef.close({ remove: false });
   }
 
   onSaveClick(): void {
+    if(!this.characterForm.valid) return;
+
+    this.editedCharacter.update(c => ({
+      ...c,
+      name: this.characterForm.value.name || '',
+      status: this.characterForm.value.status || 'unknown',
+      species: this.characterForm.value.species || '',
+      type: this.characterForm.value.type || '',
+      gender: this.characterForm.value.gender || 'unknown',
+      origin: { ...c.origin, name: this.characterForm.value.originName || '' },
+      location: { ...c.location, name: this.characterForm.value.locationName || '' },
+      image: this.characterForm.value.image || ''
+    }));
+
     this.dialogRef.close({ editedCharacter: this.editedCharacter(), remove: false });
   }
 

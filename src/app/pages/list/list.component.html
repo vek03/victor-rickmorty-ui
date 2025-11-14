@@ -2,12 +2,14 @@
 
   <h1 class="title">PERSONAGENS</h1>
 
-  <mat-form-field appearance="outline" class="search-field">
-    <mat-label>Pesquisar Personagem</mat-label>
-    <input matInput placeholder="Digite o nome do personagem" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" />
-    <mat-icon matSuffix>search</mat-icon>
-    <mat-hint>Pesquise pelo nome do personagem</mat-hint>
-  </mat-form-field>
+  <form [formGroup]="searchForm" class="search-form">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Pesquisar Personagem</mat-label>
+      <input matInput placeholder="Digite o nome do personagem" formControlName="searchTerm" (change)="onSearchChange()" (input)="onSearchChange()"/>
+      <mat-icon matSuffix>search</mat-icon>
+      <mat-hint>Pesquise pelo nome do personagem</mat-hint>
+    </mat-form-field>
+  </form>
 
   <div class="create-character">
     <button mat-raised-button color="primary" (click)="openCreateCharacterDialog()">
