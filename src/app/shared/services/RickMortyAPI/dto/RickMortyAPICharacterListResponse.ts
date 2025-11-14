@@ -1,4 +1,4 @@
-import { Character } from "../models/character.model";
+import { Character } from "../../../models/character.model";
 
 export interface RickMortyAPICharacterListResponse {
   info: {
