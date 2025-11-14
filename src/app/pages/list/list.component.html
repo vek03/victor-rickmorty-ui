@@ -21,4 +21,14 @@
       <app-character-card [character]="character" (characterChange)="updateCharacter($event)" (removeCharacter)="removeCharacter($event)"></app-character-card>
     }
   </div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <div #endOfList></div>
+
+  <div class="total-characters">
+    {{ characters.length }} de {{ totalCharacters }} personagens carregados.
+  </div>
 </div>

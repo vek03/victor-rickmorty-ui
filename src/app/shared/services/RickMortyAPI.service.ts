@@ -11,7 +11,7 @@ export class RickMortyAPIService {
 
   constructor(private http: HttpClient) {}
 
-  getCharacters(filter?: Character): Observable<RickMortyAPICharacterListResponse> {
+  getCharacters(filter?: Character, page?: number): Observable<RickMortyAPICharacterListResponse> {
     const params: any = {};
 
     if (filter) {
@@ -23,6 +23,10 @@ export class RickMortyAPIService {
           params[key] = value;
         }
       });
+    }
+
+    if (page) {
+      params['page'] = page;
     }
 
     return this.http.get<RickMortyAPICharacterListResponse>(`${this.baseUrl}/character/`, { params });
